@@ -35,7 +35,7 @@ size = Vector2(255.889, 256)
 [node name="Runner" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(4331, 412)
+position = Vector2(48, 299)
 limit_left = 0
 drag_vertical_enabled = true
 drag_top_margin = 0.36
@@ -44,7 +44,7 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="Player" parent="." instance=ExtResource("1_y21ji")]
-position = Vector2(4331, 449)
+position = Vector2(48, 336)
 
 [node name="RemoteTransform2D2" type="RemoteTransform2D" parent="Player"]
 position = Vector2(0, -37)
@@ -201,7 +201,7 @@ shape = SubResource("RectangleShape2D_5qbmg")
 position = Vector2(2017, 408)
 
 [node name="Bee6" parent="Enemys" instance=ExtResource("5_a6sfn")]
-position = Vector2(2471, 376)
+position = Vector2(2471, 391)
 
 [node name="Bee2" parent="Enemys" instance=ExtResource("5_a6sfn")]
 position = Vector2(3200, 440)
@@ -216,7 +216,7 @@ position = Vector2(3836, 317)
 position = Vector2(4006, 325)
 
 [node name="BeeSpawn" parent="Enemys" instance=ExtResource("8_psb0v")]
-position = Vector2(4839, 476)
+position = Vector2(4643, 476)
 
 [node name="BeeSpawn2" parent="Enemys" instance=ExtResource("8_psb0v")]
 position = Vector2(5046, 476)
@@ -225,24 +225,24 @@ position = Vector2(5046, 476)
 position = Vector2(5378, 476)
 
 [node name="BeeSpawn4" parent="Enemys" instance=ExtResource("8_psb0v")]
-position = Vector2(5618, 476)
+position = Vector2(5676, 476)
 
 [node name="BeeSpawn5" parent="Enemys" instance=ExtResource("8_psb0v")]
 position = Vector2(5972, 476)
 
 [node name="BeeSpawn6" parent="Enemys" instance=ExtResource("8_psb0v")]
-position = Vector2(6233, 476)
+position = Vector2(6313, 476)
 
 [node name="BeeSpawn7" parent="Enemys" instance=ExtResource("8_psb0v")]
 position = Vector2(6641, 476)
 
 [node name="BeeSpawn8" parent="Enemys" instance=ExtResource("8_psb0v")]
-position = Vector2(6902, 476)
+position = Vector2(7021, 476)
 
 [node name="BeeSpawn9" parent="Enemys" instance=ExtResource("8_psb0v")]
 position = Vector2(7339, 476)
 
 [node name="BeeSpawn10" parent="Enemys" instance=ExtResource("8_psb0v")]
-position = Vector2(7600, 476)
+position = Vector2(7746, 476)
 
 [connection signal="body_entered" from="Level/AnimatedSprite2D/Goal" to="Level/AnimatedSprite2D/Goal" method="_on_body_entered"]
