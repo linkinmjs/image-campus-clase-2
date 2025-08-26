@@ -2,9 +2,6 @@ class_name player
 
 extends CharacterBody2D
 
-# TODO:
-# Los enemigos spawneen random
-
 @export var SPEED = 300.0
 @export var JUMP_VELOCITY = -500.0
 
@@ -27,11 +24,11 @@ func _physics_process(delta: float) -> void:
 
 	if GameManager.won:
 		velocity = Vector2(0,0)
-
+	
+	animate_player()
 	move_and_slide()
 	
-func _process(delta: float) -> void:
-	
+func animate_player():
 	if GameManager.won:
 		sprite_2d.play("idle")
 		pass

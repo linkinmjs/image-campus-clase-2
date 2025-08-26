@@ -35,7 +35,7 @@ size = Vector2(255.889, 256)
 [node name="Runner" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(48, 299)
+position = Vector2(49, 218)
 limit_left = 0
 drag_vertical_enabled = true
 drag_top_margin = 0.36
@@ -44,7 +44,7 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="Player" parent="." instance=ExtResource("1_y21ji")]
-position = Vector2(48, 336)
+position = Vector2(49, 255)
 
 [node name="RemoteTransform2D2" type="RemoteTransform2D" parent="Player"]
 position = Vector2(0, -37)
@@ -66,7 +66,7 @@ script = ExtResource("4_5qbmg")
 position = Vector2(0, 641)
 shape = SubResource("WorldBoundaryShape2D_a6sfn")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Level"]
+[node name="Goal" type="AnimatedSprite2D" parent="Level"]
 position = Vector2(1076.08, -192)
 scale = Vector2(0.166, 1)
 sprite_frames = SubResource("SpriteFrames_fleup")
@@ -75,13 +75,13 @@ autoplay = "idle"
 frame = 1
 frame_progress = 0.836309
 
-[node name="Goal" type="Area2D" parent="Level/AnimatedSprite2D"]
+[node name="Area2D" type="Area2D" parent="Level/Goal"]
 position = Vector2(-26.9701, -12)
 scale = Vector2(0.532088, 1.70385)
 collision_layer = 0
 script = ExtResource("5_ouwii")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/AnimatedSprite2D/Goal"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Goal/Area2D"]
 shape = SubResource("RectangleShape2D_a6sfn")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Level"]
@@ -195,6 +195,32 @@ texture = ExtResource("2_0q11q")
 position = Vector2(1.14441e-05, 0)
 shape = SubResource("RectangleShape2D_5qbmg")
 
+[node name="Labels" type="Node" parent="Level"]
+
+[node name="Label" type="Label" parent="Level/Labels"]
+offset_left = 2772.0
+offset_top = 173.0
+offset_right = 2974.0
+offset_bottom = 196.0
+scale = Vector2(3.00124, 3.00407)
+text = "Salto largo!"
+
+[node name="Label2" type="Label" parent="Level/Labels"]
+offset_left = 3566.0
+offset_top = 181.0
+offset_right = 3752.0
+offset_bottom = 204.0
+scale = Vector2(3.00124, 3.00407)
+text = "Y ahora saltos cortitos :)"
+
+[node name="Label3" type="Label" parent="Level/Labels"]
+offset_left = 5026.0
+offset_top = 54.0
+offset_right = 5212.0
+offset_bottom = 77.0
+scale = Vector2(3.00124, 3.00407)
+text = "Cada abeja ahora se genera aleatoriamente seteando position.y con randf_range(-20, -220)"
+
 [node name="Enemys" type="Node2D" parent="."]
 
 [node name="Bee" parent="Enemys" instance=ExtResource("5_a6sfn")]
@@ -214,9 +240,6 @@ position = Vector2(3836, 317)
 
 [node name="Bee5" parent="Enemys" instance=ExtResource("5_a6sfn")]
 position = Vector2(4006, 325)
-
-[node name="BeeSpawn" parent="Enemys" instance=ExtResource("8_psb0v")]
-position = Vector2(4643, 476)
 
 [node name="BeeSpawn2" parent="Enemys" instance=ExtResource("8_psb0v")]
 position = Vector2(5046, 476)
@@ -245,4 +268,4 @@ position = Vector2(7339, 476)
 [node name="BeeSpawn10" parent="Enemys" instance=ExtResource("8_psb0v")]
 position = Vector2(7746, 476)
 
-[connection signal="body_entered" from="Level/AnimatedSprite2D/Goal" to="Level/AnimatedSprite2D/Goal" method="_on_body_entered"]
+[connection signal="body_entered" from="Level/Goal/Area2D" to="Level/Goal/Area2D" method="_on_body_entered"]
