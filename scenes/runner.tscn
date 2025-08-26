@@ -1,24 +1,41 @@
-[gd_scene load_steps=9 format=3 uid="uid://dm2lae2cw7u1n"]
+[gd_scene load_steps=13 format=3 uid="uid://dm2lae2cw7u1n"]
 
 [ext_resource type="PackedScene" uid="uid://d3g5xu4blaolw" path="res://scenes/player.tscn" id="1_y21ji"]
 [ext_resource type="Texture2D" uid="uid://b74ixs1n2dpx0" path="res://assets/Vector/Backgrounds/background_solid_dirt.svg" id="2_0q11q"]
+[ext_resource type="Texture2D" uid="uid://drnp2my6c55n5" path="res://assets/Sprites/Tiles/Double/flag_green_a.png" id="3_1ty2h"]
 [ext_resource type="Script" uid="uid://blpjntbveyke1" path="res://scripts/fall_hazard.gd" id="4_5qbmg"]
+[ext_resource type="Texture2D" uid="uid://cxv8qejn4h8ib" path="res://assets/Sprites/Tiles/Double/flag_green_b.png" id="4_psb0v"]
 [ext_resource type="PackedScene" uid="uid://c6u2cia3jl6sv" path="res://scenes/bee.tscn" id="5_a6sfn"]
 [ext_resource type="Script" uid="uid://uiyvm6h6a3d" path="res://scripts/goal.gd" id="5_ouwii"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5qbmg"]
-size = Vector2(255.889, 256)
+[ext_resource type="PackedScene" uid="uid://b1tpbe5gm4w34" path="res://scenes/bee_spawn.tscn" id="8_psb0v"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_a6sfn"]
 distance = -65.0
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_fleup"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_1ty2h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_psb0v")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a6sfn"]
 size = Vector2(115, 407)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5qbmg"]
+size = Vector2(255.889, 256)
 
 [node name="Runner" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(253, 351)
+position = Vector2(4331, 412)
 limit_left = 0
 drag_vertical_enabled = true
 drag_top_margin = 0.36
@@ -27,7 +44,7 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="Player" parent="." instance=ExtResource("1_y21ji")]
-position = Vector2(253, 388)
+position = Vector2(4331, 449)
 
 [node name="RemoteTransform2D2" type="RemoteTransform2D" parent="Player"]
 position = Vector2(0, -37)
@@ -35,49 +52,197 @@ remote_path = NodePath("../../Camera2D")
 update_rotation = false
 update_scale = false
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(494, 604)
-scale = Vector2(5.8072, 1)
-collision_layer = 2
-collision_mask = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-texture = ExtResource("2_0q11q")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_5qbmg")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+[node name="Level" type="Node2D" parent="."]
 position = Vector2(2149, 604)
 scale = Vector2(5.8072, 1)
-collision_layer = 2
-collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
-texture = ExtResource("2_0q11q")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2(1.14441e-05, 0)
-shape = SubResource("RectangleShape2D_5qbmg")
-
-[node name="Bee" parent="." instance=ExtResource("5_a6sfn")]
-position = Vector2(614, 432)
-
-[node name="FallHazard" type="Area2D" parent="."]
+[node name="FallHazard" type="Area2D" parent="Level"]
+position = Vector2(-370.058, -604)
+scale = Vector2(0.1722, 1)
 collision_layer = 0
 script = ExtResource("4_5qbmg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FallHazard"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/FallHazard"]
 position = Vector2(0, 641)
 shape = SubResource("WorldBoundaryShape2D_a6sfn")
 
-[node name="Goal" type="Area2D" parent="."]
-position = Vector2(1084, 375)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Level"]
+position = Vector2(1076.08, -192)
+scale = Vector2(0.166, 1)
+sprite_frames = SubResource("SpriteFrames_fleup")
+animation = &"idle"
+autoplay = "idle"
+frame = 1
+frame_progress = 0.836309
+
+[node name="Goal" type="Area2D" parent="Level/AnimatedSprite2D"]
+position = Vector2(-26.9701, -12)
+scale = Vector2(0.532088, 1.70385)
 collision_layer = 0
 script = ExtResource("5_ouwii")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
-scale = Vector2(1, 0.965451)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/AnimatedSprite2D/Goal"]
 shape = SubResource("RectangleShape2D_a6sfn")
 
-[connection signal="body_entered" from="Goal" to="Goal" method="_on_body_entered"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Level"]
+position = Vector2(-284.991, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D"]
+texture = ExtResource("2_0q11q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D"]
+shape = SubResource("RectangleShape2D_5qbmg")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Level"]
+position = Vector2(23.9358, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D2"]
+texture = ExtResource("2_0q11q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D2"]
+position = Vector2(1.14441e-05, 0)
+shape = SubResource("RectangleShape2D_5qbmg")
+
+[node name="StaticBody2D7" type="StaticBody2D" parent="Level"]
+position = Vector2(448.753, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D7"]
+texture = ExtResource("2_0q11q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D7"]
+position = Vector2(1.14441e-05, 0)
+shape = SubResource("RectangleShape2D_5qbmg")
+
+[node name="StaticBody2D8" type="StaticBody2D" parent="Level"]
+position = Vector2(703.264, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D8"]
+texture = ExtResource("2_0q11q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D8"]
+position = Vector2(1.14441e-05, 0)
+shape = SubResource("RectangleShape2D_5qbmg")
+
+[node name="StaticBody2D9" type="StaticBody2D" parent="Level"]
+position = Vector2(953.299, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D9"]
+texture = ExtResource("2_0q11q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D9"]
+position = Vector2(1.14441e-05, 0)
+shape = SubResource("RectangleShape2D_5qbmg")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Level"]
+position = Vector2(217.144, 0)
+scale = Vector2(0.070121, 1)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D3"]
+texture = ExtResource("2_0q11q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D3"]
+position = Vector2(1.14441e-05, 0)
+shape = SubResource("RectangleShape2D_5qbmg")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Level"]
+position = Vector2(180.982, 0)
+scale = Vector2(0.070121, 1)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D4"]
+texture = ExtResource("2_0q11q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D4"]
+position = Vector2(1.14441e-05, 0)
+shape = SubResource("RectangleShape2D_5qbmg")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="Level"]
+position = Vector2(253.995, 0)
+scale = Vector2(0.070121, 1)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D5"]
+texture = ExtResource("2_0q11q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D5"]
+position = Vector2(1.14441e-05, 0)
+shape = SubResource("RectangleShape2D_5qbmg")
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="Level"]
+position = Vector2(290.501, 0)
+scale = Vector2(0.070121, 1)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D6"]
+texture = ExtResource("2_0q11q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D6"]
+position = Vector2(1.14441e-05, 0)
+shape = SubResource("RectangleShape2D_5qbmg")
+
+[node name="Enemys" type="Node2D" parent="."]
+
+[node name="Bee" parent="Enemys" instance=ExtResource("5_a6sfn")]
+position = Vector2(2017, 408)
+
+[node name="Bee6" parent="Enemys" instance=ExtResource("5_a6sfn")]
+position = Vector2(2471, 376)
+
+[node name="Bee2" parent="Enemys" instance=ExtResource("5_a6sfn")]
+position = Vector2(3200, 440)
+
+[node name="Bee3" parent="Enemys" instance=ExtResource("5_a6sfn")]
+position = Vector2(3677, 317)
+
+[node name="Bee4" parent="Enemys" instance=ExtResource("5_a6sfn")]
+position = Vector2(3836, 317)
+
+[node name="Bee5" parent="Enemys" instance=ExtResource("5_a6sfn")]
+position = Vector2(4006, 325)
+
+[node name="BeeSpawn" parent="Enemys" instance=ExtResource("8_psb0v")]
+position = Vector2(4839, 476)
+
+[node name="BeeSpawn2" parent="Enemys" instance=ExtResource("8_psb0v")]
+position = Vector2(5046, 476)
+
+[node name="BeeSpawn3" parent="Enemys" instance=ExtResource("8_psb0v")]
+position = Vector2(5378, 476)
+
+[node name="BeeSpawn4" parent="Enemys" instance=ExtResource("8_psb0v")]
+position = Vector2(5618, 476)
+
+[node name="BeeSpawn5" parent="Enemys" instance=ExtResource("8_psb0v")]
+position = Vector2(5972, 476)
+
+[node name="BeeSpawn6" parent="Enemys" instance=ExtResource("8_psb0v")]
+position = Vector2(6233, 476)
+
+[node name="BeeSpawn7" parent="Enemys" instance=ExtResource("8_psb0v")]
+position = Vector2(6641, 476)
+
+[node name="BeeSpawn8" parent="Enemys" instance=ExtResource("8_psb0v")]
+position = Vector2(6902, 476)
+
+[node name="BeeSpawn9" parent="Enemys" instance=ExtResource("8_psb0v")]
+position = Vector2(7339, 476)
+
+[node name="BeeSpawn10" parent="Enemys" instance=ExtResource("8_psb0v")]
+position = Vector2(7600, 476)
+
+[connection signal="body_entered" from="Level/AnimatedSprite2D/Goal" to="Level/AnimatedSprite2D/Goal" method="_on_body_entered"]

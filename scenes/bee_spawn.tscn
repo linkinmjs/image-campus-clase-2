@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1tpbe5gm4w34"]
+
+[ext_resource type="Script" uid="uid://0agh3cokq32k" path="res://scripts/bee_spawn.gd" id="1_7nqiu"]
+
+[node name="BeeSpawn" type="Area2D"]
+script = ExtResource("1_7nqiu")

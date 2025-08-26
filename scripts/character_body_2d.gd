@@ -4,10 +4,9 @@ extends CharacterBody2D
 
 # TODO:
 # Los enemigos spawneen random
-# Salto controlado
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+@export var SPEED = 300.0
+@export var JUMP_VELOCITY = -500.0
 
 @onready var sprite_2d: AnimatedSprite2D = $Sprite2D
 
@@ -18,9 +17,13 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+	elif Input.is_action_just_released("jump") and velocity.y < 0:
+		velocity.y = 0
+	
 	velocity.x = SPEED
+	
 
 	if GameManager.won:
 		velocity = Vector2(0,0)
