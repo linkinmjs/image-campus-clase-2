@@ -1,10 +1,9 @@
 extends Node
 
-
 var lost: bool = false
 var won: bool = false
 
-func _process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if lost:
 		reset_level()
 
