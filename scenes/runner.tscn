@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://dm2lae2cw7u1n"]
+
+[ext_resource type="PackedScene" uid="uid://d3g5xu4blaolw" path="res://scenes/player.tscn" id="1_y21ji"]
+[ext_resource type="Texture2D" uid="uid://b74ixs1n2dpx0" path="res://assets/Vector/Backgrounds/background_solid_dirt.svg" id="2_0q11q"]
+[ext_resource type="Script" uid="uid://blpjntbveyke1" path="res://scripts/fall_hazard.gd" id="4_5qbmg"]
+[ext_resource type="PackedScene" uid="uid://c6u2cia3jl6sv" path="res://scenes/bee.tscn" id="5_a6sfn"]
+[ext_resource type="Script" uid="uid://uiyvm6h6a3d" path="res://scripts/goal.gd" id="5_ouwii"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5qbmg"]
+size = Vector2(255.889, 256)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_a6sfn"]
+distance = -65.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a6sfn"]
+size = Vector2(115, 407)
+
+[node name="Runner" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(253, 351)
+limit_left = 0
+drag_vertical_enabled = true
+drag_top_margin = 0.36
+drag_bottom_margin = 0.36
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="Player" parent="." instance=ExtResource("1_y21ji")]
+position = Vector2(253, 388)
+
+[node name="RemoteTransform2D2" type="RemoteTransform2D" parent="Player"]
+position = Vector2(0, -37)
+remote_path = NodePath("../../Camera2D")
+update_rotation = false
+update_scale = false
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(494, 604)
+scale = Vector2(5.8072, 1)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture = ExtResource("2_0q11q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_5qbmg")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(2149, 604)
+scale = Vector2(5.8072, 1)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
+texture = ExtResource("2_0q11q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(1.14441e-05, 0)
+shape = SubResource("RectangleShape2D_5qbmg")
+
+[node name="Bee" parent="." instance=ExtResource("5_a6sfn")]
+position = Vector2(614, 432)
+
+[node name="FallHazard" type="Area2D" parent="."]
+collision_layer = 0
+script = ExtResource("4_5qbmg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FallHazard"]
+position = Vector2(0, 641)
+shape = SubResource("WorldBoundaryShape2D_a6sfn")
+
+[node name="Goal" type="Area2D" parent="."]
+position = Vector2(1084, 375)
+collision_layer = 0
+script = ExtResource("5_ouwii")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
+scale = Vector2(1, 0.965451)
+shape = SubResource("RectangleShape2D_a6sfn")
+
+[connection signal="body_entered" from="Goal" to="Goal" method="_on_body_entered"]
