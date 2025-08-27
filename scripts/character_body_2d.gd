@@ -5,12 +5,21 @@ extends CharacterBody2D
 @export var SPEED = 300.0
 @export var JUMP_VELOCITY = -500.0
 
+var coyote_time: float = 0.25
+var coyote_time_left: float = coyote_time
+
 @onready var sprite_2d: AnimatedSprite2D = $Sprite2D
 
 func _physics_process(delta: float) -> void:
+	
+	print(coyote_time_left)
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		coyote_time_left -= delta
+	else:
+		coyote_time_left = coyote_time
 	
 	velocity.x = SPEED
 	
@@ -19,7 +28,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0
 	
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor() and !GameManager.won:
+	if Input.is_action_just_pressed("jump") and (is_on_floor() or coyote_time_left > 0.0) and !GameManager.won:
+		coyote_time_left = 0.0
 		velocity.y = JUMP_VELOCITY
 	elif Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y = 0

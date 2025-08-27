@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://dm2lae2cw7u1n"]
+[gd_scene load_steps=14 format=3 uid="uid://dm2lae2cw7u1n"]
 
 [ext_resource type="PackedScene" uid="uid://d3g5xu4blaolw" path="res://scenes/player.tscn" id="1_tipki"]
 [ext_resource type="Script" uid="uid://blpjntbveyke1" path="res://scripts/fall_hazard.gd" id="2_85g3d"]
 [ext_resource type="Texture2D" uid="uid://drnp2my6c55n5" path="res://assets/Sprites/Tiles/Double/flag_green_a.png" id="3_choun"]
 [ext_resource type="Texture2D" uid="uid://cxv8qejn4h8ib" path="res://assets/Sprites/Tiles/Double/flag_green_b.png" id="4_ya4ey"]
 [ext_resource type="Script" uid="uid://uiyvm6h6a3d" path="res://scripts/goal.gd" id="5_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://001atgxj6w6c" path="res://scenes/slime.tscn" id="6_85g3d"]
 [ext_resource type="Texture2D" uid="uid://b74ixs1n2dpx0" path="res://assets/Vector/Backgrounds/background_solid_dirt.svg" id="6_trceg"]
 [ext_resource type="PackedScene" uid="uid://c6u2cia3jl6sv" path="res://scenes/bee.tscn" id="7_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://b1tpbe5gm4w34" path="res://scenes/bee_spawn.tscn" id="8_jkv2x"]
@@ -36,6 +37,7 @@ size = Vector2(255.889, 256)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(85, 227)
+process_callback = 0
 limit_left = 0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
@@ -222,6 +224,9 @@ text = "Cada abeja ahora se genera aleatoriamente seteando position.y con randf_
 
 [node name="Enemys" type="Node2D" parent="."]
 
+[node name="Slime" parent="Enemys" instance=ExtResource("6_85g3d")]
+position = Vector2(807, 363)
+
 [node name="Bee" parent="Enemys" instance=ExtResource("7_a8y0u")]
 position = Vector2(2017, 408)
 
@@ -270,7 +275,7 @@ position = Vector2(7746, 476)
 [node name="Player" parent="." instance=ExtResource("1_tipki")]
 position = Vector2(85, 264)
 
-[node name="RemoteTransform2D2" type="RemoteTransform2D" parent="Player"]
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 position = Vector2(0, -37)
 remote_path = NodePath("../../Camera2D")
 update_rotation = false
