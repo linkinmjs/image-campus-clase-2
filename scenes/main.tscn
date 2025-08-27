@@ -1,13 +1,13 @@
 [gd_scene load_steps=13 format=3 uid="uid://dm2lae2cw7u1n"]
 
-[ext_resource type="PackedScene" uid="uid://d3g5xu4blaolw" path="res://scenes/player.tscn" id="1_y21ji"]
-[ext_resource type="Texture2D" uid="uid://b74ixs1n2dpx0" path="res://assets/Vector/Backgrounds/background_solid_dirt.svg" id="2_0q11q"]
-[ext_resource type="Texture2D" uid="uid://drnp2my6c55n5" path="res://assets/Sprites/Tiles/Double/flag_green_a.png" id="3_1ty2h"]
-[ext_resource type="Script" uid="uid://blpjntbveyke1" path="res://scripts/fall_hazard.gd" id="4_5qbmg"]
-[ext_resource type="Texture2D" uid="uid://cxv8qejn4h8ib" path="res://assets/Sprites/Tiles/Double/flag_green_b.png" id="4_psb0v"]
-[ext_resource type="PackedScene" uid="uid://c6u2cia3jl6sv" path="res://scenes/bee.tscn" id="5_a6sfn"]
-[ext_resource type="Script" uid="uid://uiyvm6h6a3d" path="res://scripts/goal.gd" id="5_ouwii"]
-[ext_resource type="PackedScene" uid="uid://b1tpbe5gm4w34" path="res://scenes/bee_spawn.tscn" id="8_psb0v"]
+[ext_resource type="PackedScene" uid="uid://d3g5xu4blaolw" path="res://scenes/player.tscn" id="1_tipki"]
+[ext_resource type="Script" uid="uid://blpjntbveyke1" path="res://scripts/fall_hazard.gd" id="2_85g3d"]
+[ext_resource type="Texture2D" uid="uid://drnp2my6c55n5" path="res://assets/Sprites/Tiles/Double/flag_green_a.png" id="3_choun"]
+[ext_resource type="Texture2D" uid="uid://cxv8qejn4h8ib" path="res://assets/Sprites/Tiles/Double/flag_green_b.png" id="4_ya4ey"]
+[ext_resource type="Script" uid="uid://uiyvm6h6a3d" path="res://scripts/goal.gd" id="5_eb6dy"]
+[ext_resource type="Texture2D" uid="uid://b74ixs1n2dpx0" path="res://assets/Vector/Backgrounds/background_solid_dirt.svg" id="6_trceg"]
+[ext_resource type="PackedScene" uid="uid://c6u2cia3jl6sv" path="res://scenes/bee.tscn" id="7_a8y0u"]
+[ext_resource type="PackedScene" uid="uid://b1tpbe5gm4w34" path="res://scenes/bee_spawn.tscn" id="8_jkv2x"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_a6sfn"]
 distance = -65.0
@@ -16,10 +16,10 @@ distance = -65.0
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_1ty2h")
+"texture": ExtResource("3_choun")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_psb0v")
+"texture": ExtResource("4_ya4ey")
 }],
 "loop": true,
 "name": &"idle",
@@ -32,25 +32,16 @@ size = Vector2(115, 407)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5qbmg"]
 size = Vector2(255.889, 256)
 
-[node name="Runner" type="Node2D"]
+[node name="Main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(49, 218)
+position = Vector2(85, 227)
 limit_left = 0
+drag_horizontal_enabled = true
 drag_vertical_enabled = true
-drag_top_margin = 0.36
-drag_bottom_margin = 0.36
-editor_draw_limits = true
+drag_top_margin = 0.4
+drag_bottom_margin = 0.4
 editor_draw_drag_margin = true
-
-[node name="Player" parent="." instance=ExtResource("1_y21ji")]
-position = Vector2(49, 255)
-
-[node name="RemoteTransform2D2" type="RemoteTransform2D" parent="Player"]
-position = Vector2(0, -37)
-remote_path = NodePath("../../Camera2D")
-update_rotation = false
-update_scale = false
 
 [node name="Level" type="Node2D" parent="."]
 position = Vector2(2149, 604)
@@ -60,14 +51,14 @@ scale = Vector2(5.8072, 1)
 position = Vector2(-370.058, -604)
 scale = Vector2(0.1722, 1)
 collision_layer = 0
-script = ExtResource("4_5qbmg")
+script = ExtResource("2_85g3d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/FallHazard"]
 position = Vector2(0, 641)
 shape = SubResource("WorldBoundaryShape2D_a6sfn")
 
 [node name="Goal" type="AnimatedSprite2D" parent="Level"]
-position = Vector2(1076.08, -192)
+position = Vector2(1038.88, -192)
 scale = Vector2(0.166, 1)
 sprite_frames = SubResource("SpriteFrames_fleup")
 animation = &"idle"
@@ -79,7 +70,7 @@ frame_progress = 0.836309
 position = Vector2(-26.9701, -12)
 scale = Vector2(0.532088, 1.70385)
 collision_layer = 0
-script = ExtResource("5_ouwii")
+script = ExtResource("5_eb6dy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Goal/Area2D"]
 shape = SubResource("RectangleShape2D_a6sfn")
@@ -90,7 +81,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D"]
-texture = ExtResource("2_0q11q")
+texture = ExtResource("6_trceg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D"]
 shape = SubResource("RectangleShape2D_5qbmg")
@@ -101,7 +92,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D2"]
-texture = ExtResource("2_0q11q")
+texture = ExtResource("6_trceg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D2"]
 position = Vector2(1.14441e-05, 0)
@@ -113,7 +104,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D7"]
-texture = ExtResource("2_0q11q")
+texture = ExtResource("6_trceg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D7"]
 position = Vector2(1.14441e-05, 0)
@@ -125,7 +116,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D8"]
-texture = ExtResource("2_0q11q")
+texture = ExtResource("6_trceg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D8"]
 position = Vector2(1.14441e-05, 0)
@@ -137,7 +128,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D9"]
-texture = ExtResource("2_0q11q")
+texture = ExtResource("6_trceg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D9"]
 position = Vector2(1.14441e-05, 0)
@@ -150,7 +141,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D3"]
-texture = ExtResource("2_0q11q")
+texture = ExtResource("6_trceg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D3"]
 position = Vector2(1.14441e-05, 0)
@@ -163,7 +154,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D4"]
-texture = ExtResource("2_0q11q")
+texture = ExtResource("6_trceg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D4"]
 position = Vector2(1.14441e-05, 0)
@@ -176,7 +167,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D5"]
-texture = ExtResource("2_0q11q")
+texture = ExtResource("6_trceg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D5"]
 position = Vector2(1.14441e-05, 0)
@@ -189,7 +180,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D6"]
-texture = ExtResource("2_0q11q")
+texture = ExtResource("6_trceg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D6"]
 position = Vector2(1.14441e-05, 0)
@@ -204,6 +195,14 @@ offset_right = 2974.0
 offset_bottom = 196.0
 scale = Vector2(3.00124, 3.00407)
 text = "Salto largo!"
+
+[node name="Label4" type="Label" parent="Level/Labels"]
+offset_left = 519.0
+offset_top = 173.0
+offset_right = 557.0
+offset_bottom = 196.0
+scale = Vector2(3.00124, 3.00407)
+text = "Go!"
 
 [node name="Label2" type="Label" parent="Level/Labels"]
 offset_left = 3566.0
@@ -223,49 +222,58 @@ text = "Cada abeja ahora se genera aleatoriamente seteando position.y con randf_
 
 [node name="Enemys" type="Node2D" parent="."]
 
-[node name="Bee" parent="Enemys" instance=ExtResource("5_a6sfn")]
+[node name="Bee" parent="Enemys" instance=ExtResource("7_a8y0u")]
 position = Vector2(2017, 408)
 
-[node name="Bee6" parent="Enemys" instance=ExtResource("5_a6sfn")]
+[node name="Bee6" parent="Enemys" instance=ExtResource("7_a8y0u")]
 position = Vector2(2471, 391)
 
-[node name="Bee2" parent="Enemys" instance=ExtResource("5_a6sfn")]
+[node name="Bee2" parent="Enemys" instance=ExtResource("7_a8y0u")]
 position = Vector2(3200, 440)
 
-[node name="Bee3" parent="Enemys" instance=ExtResource("5_a6sfn")]
+[node name="Bee3" parent="Enemys" instance=ExtResource("7_a8y0u")]
 position = Vector2(3677, 317)
 
-[node name="Bee4" parent="Enemys" instance=ExtResource("5_a6sfn")]
+[node name="Bee4" parent="Enemys" instance=ExtResource("7_a8y0u")]
 position = Vector2(3836, 317)
 
-[node name="Bee5" parent="Enemys" instance=ExtResource("5_a6sfn")]
+[node name="Bee5" parent="Enemys" instance=ExtResource("7_a8y0u")]
 position = Vector2(4006, 325)
 
-[node name="BeeSpawn2" parent="Enemys" instance=ExtResource("8_psb0v")]
+[node name="BeeSpawn2" parent="Enemys" instance=ExtResource("8_jkv2x")]
 position = Vector2(5046, 476)
 
-[node name="BeeSpawn3" parent="Enemys" instance=ExtResource("8_psb0v")]
+[node name="BeeSpawn3" parent="Enemys" instance=ExtResource("8_jkv2x")]
 position = Vector2(5378, 476)
 
-[node name="BeeSpawn4" parent="Enemys" instance=ExtResource("8_psb0v")]
+[node name="BeeSpawn4" parent="Enemys" instance=ExtResource("8_jkv2x")]
 position = Vector2(5676, 476)
 
-[node name="BeeSpawn5" parent="Enemys" instance=ExtResource("8_psb0v")]
+[node name="BeeSpawn5" parent="Enemys" instance=ExtResource("8_jkv2x")]
 position = Vector2(5972, 476)
 
-[node name="BeeSpawn6" parent="Enemys" instance=ExtResource("8_psb0v")]
+[node name="BeeSpawn6" parent="Enemys" instance=ExtResource("8_jkv2x")]
 position = Vector2(6313, 476)
 
-[node name="BeeSpawn7" parent="Enemys" instance=ExtResource("8_psb0v")]
+[node name="BeeSpawn7" parent="Enemys" instance=ExtResource("8_jkv2x")]
 position = Vector2(6641, 476)
 
-[node name="BeeSpawn8" parent="Enemys" instance=ExtResource("8_psb0v")]
+[node name="BeeSpawn8" parent="Enemys" instance=ExtResource("8_jkv2x")]
 position = Vector2(7021, 476)
 
-[node name="BeeSpawn9" parent="Enemys" instance=ExtResource("8_psb0v")]
+[node name="BeeSpawn9" parent="Enemys" instance=ExtResource("8_jkv2x")]
 position = Vector2(7339, 476)
 
-[node name="BeeSpawn10" parent="Enemys" instance=ExtResource("8_psb0v")]
+[node name="BeeSpawn10" parent="Enemys" instance=ExtResource("8_jkv2x")]
 position = Vector2(7746, 476)
+
+[node name="Player" parent="." instance=ExtResource("1_tipki")]
+position = Vector2(85, 264)
+
+[node name="RemoteTransform2D2" type="RemoteTransform2D" parent="Player"]
+position = Vector2(0, -37)
+remote_path = NodePath("../../Camera2D")
+update_rotation = false
+update_scale = false
 
 [connection signal="body_entered" from="Level/Goal/Area2D" to="Level/Goal/Area2D" method="_on_body_entered"]

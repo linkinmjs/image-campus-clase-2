@@ -8,22 +8,22 @@ extends CharacterBody2D
 @onready var sprite_2d: AnimatedSprite2D = $Sprite2D
 
 func _physics_process(delta: float) -> void:
-	
 	# Add the gravity.
-	if not is_on_floor() and !GameManager.won:
+	if not is_on_floor():
 		velocity += get_gravity() * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-	elif Input.is_action_just_released("jump") and velocity.y < 0:
-		velocity.y = 0
 	
 	velocity.x = SPEED
 	
-	if GameManager.won:
-		velocity = Vector2(0,0)
+	# Check win condition
+	if GameManager.won and is_on_floor():
+		velocity.x = 0
 	
+	# Handle jump.
+	if Input.is_action_just_pressed("jump") and is_on_floor() and !GameManager.won:
+		velocity.y = JUMP_VELOCITY
+	elif Input.is_action_just_released("jump") and velocity.y < 0:
+		velocity.y = 0
+		
 	animate_player()
 	move_and_slide()
 	
