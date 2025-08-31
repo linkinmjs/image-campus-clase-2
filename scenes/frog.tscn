@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://comx83bpiyjtu"]
+
+[ext_resource type="Texture2D" uid="uid://d01xn1pjsmtxs" path="res://assets/Spritesheets/spritesheet-enemies-default.png" id="1_mqod6"]
+[ext_resource type="Script" uid="uid://unupjhfjadyc" path="res://scripts/frog.gd" id="1_qyo2l"]
+
+[sub_resource type="Curve2D" id="Curve2D_qyo2l"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, -244, 1)
+}
+point_count = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rq8tc"]
+atlas = ExtResource("1_mqod6")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1g2vb"]
+atlas = ExtResource("1_mqod6")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ybftx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rq8tc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1g2vb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqod6"]
+size = Vector2(39, 40.5)
+
+[node name="Frog" type="Path2D"]
+curve = SubResource("Curve2D_qyo2l")
+script = ExtResource("1_qyo2l")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(0, 1)
+rotates = false
+loop = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PathFollow2D"]
+sprite_frames = SubResource("SpriteFrames_ybftx")
+autoplay = "default"
+frame_progress = 0.947424
+
+[node name="Area2D" type="Area2D" parent="PathFollow2D"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Area2D"]
+position = Vector2(-2.5, 6.75)
+shape = SubResource("RectangleShape2D_mqod6")
+
+[connection signal="body_entered" from="PathFollow2D/Area2D" to="." method="_on_area_2d_body_entered"]

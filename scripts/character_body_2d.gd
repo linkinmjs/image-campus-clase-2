@@ -12,8 +12,6 @@ var coyote_time_left: float = coyote_time
 
 func _physics_process(delta: float) -> void:
 	
-	print(coyote_time_left)
-	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

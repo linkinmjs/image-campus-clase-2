@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dm2lae2cw7u1n"]
+[gd_scene load_steps=16 format=3 uid="uid://dm2lae2cw7u1n"]
 
 [ext_resource type="PackedScene" uid="uid://d3g5xu4blaolw" path="res://scenes/player.tscn" id="1_tipki"]
 [ext_resource type="Script" uid="uid://blpjntbveyke1" path="res://scripts/fall_hazard.gd" id="2_85g3d"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b74ixs1n2dpx0" path="res://assets/Vector/Backgrounds/background_solid_dirt.svg" id="6_trceg"]
 [ext_resource type="PackedScene" uid="uid://c6u2cia3jl6sv" path="res://scenes/bee.tscn" id="7_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://b1tpbe5gm4w34" path="res://scenes/bee_spawn.tscn" id="8_jkv2x"]
+[ext_resource type="PackedScene" uid="uid://comx83bpiyjtu" path="res://scenes/frog.tscn" id="9_choun"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_a6sfn"]
 distance = -65.0
@@ -32,6 +33,13 @@ size = Vector2(115, 407)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5qbmg"]
 size = Vector2(255.889, 256)
+
+[sub_resource type="Curve2D" id="Curve2D_choun"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, -244, 1)
+}
+point_count = 2
 
 [node name="Main" type="Node2D"]
 
@@ -271,6 +279,10 @@ position = Vector2(7339, 476)
 
 [node name="BeeSpawn10" parent="Enemys" instance=ExtResource("8_jkv2x")]
 position = Vector2(7746, 476)
+
+[node name="Frog" parent="Enemys" instance=ExtResource("9_choun")]
+position = Vector2(696, 441)
+curve = SubResource("Curve2D_choun")
 
 [node name="Player" parent="." instance=ExtResource("1_tipki")]
 position = Vector2(85, 264)
