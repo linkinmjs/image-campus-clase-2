@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dm2lae2cw7u1n"]
+[gd_scene load_steps=17 format=3 uid="uid://dm2lae2cw7u1n"]
 
 [ext_resource type="PackedScene" uid="uid://d3g5xu4blaolw" path="res://scenes/player.tscn" id="1_tipki"]
 [ext_resource type="Script" uid="uid://blpjntbveyke1" path="res://scripts/fall_hazard.gd" id="2_85g3d"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c6u2cia3jl6sv" path="res://scenes/bee.tscn" id="7_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://b1tpbe5gm4w34" path="res://scenes/bee_spawn.tscn" id="8_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://comx83bpiyjtu" path="res://scenes/frog.tscn" id="9_choun"]
+[ext_resource type="PackedScene" uid="uid://d14ckogjfbavm" path="res://scenes/coin.tscn" id="11_ya4ey"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_a6sfn"]
 distance = -65.0
@@ -292,5 +293,10 @@ position = Vector2(0, -37)
 remote_path = NodePath("../../Camera2D")
 update_rotation = false
 update_scale = false
+
+[node name="Collectibles" type="Node2D" parent="."]
+
+[node name="Coin" parent="Collectibles" instance=ExtResource("11_ya4ey")]
+position = Vector2(306, 386)
 
 [connection signal="body_entered" from="Level/Goal/Area2D" to="Level/Goal/Area2D" method="_on_body_entered"]
