@@ -299,4 +299,13 @@ update_scale = false
 [node name="Coin" parent="Collectibles" instance=ExtResource("11_ya4ey")]
 position = Vector2(306, 386)
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 20.0
+offset_top = 14.0
+offset_right = 98.0
+offset_bottom = 44.0
+text = "Score: 0"
+
 [connection signal="body_entered" from="Level/Goal/Area2D" to="Level/Goal/Area2D" method="_on_body_entered"]

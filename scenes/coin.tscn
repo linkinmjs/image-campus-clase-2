@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://d14ckogjfbavm"]
+[gd_scene load_steps=6 format=3 uid="uid://d14ckogjfbavm"]
 
-[ext_resource type="Script" uid="uid://cyirbj04jcj48" path="res://scripts/coin.gd" id="1_11l1o"]
+[ext_resource type="Script" uid="uid://cp7tkyv04u5d4" path="res://scripts/coin_with_collected_effect.gd" id="1_11l1o"]
 [ext_resource type="Texture2D" uid="uid://snduqtn1fqoi" path="res://assets/Sprites/Tiles/Default/coin_gold.png" id="2_d14el"]
 [ext_resource type="Texture2D" uid="uid://cckbu4sexncpj" path="res://assets/Sprites/Tiles/Default/coin_gold_side.png" id="3_1ikuy"]
-[ext_resource type="AudioStream" uid="uid://dddxin0vaf7wu" path="res://assets/Sounds/sfx_coin.ogg" id="4_d14el"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wnlwo"]
 animations = [{
@@ -36,8 +35,5 @@ frame_progress = 0.414059
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jig8b")
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_d14el")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
