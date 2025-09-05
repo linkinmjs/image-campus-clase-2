@@ -1,7 +1,7 @@
 extends Node2D
-@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
-	audio_stream_player_2d.play()
-	await audio_stream_player_2d.finished
+	animation_player.play("collected")
+	await animation_player.animation_finished
 	queue_free()

@@ -4,6 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://snduqtn1fqoi" path="res://assets/Sprites/Tiles/Default/coin_gold.png" id="2_d14el"]
 [ext_resource type="Texture2D" uid="uid://cckbu4sexncpj" path="res://assets/Sprites/Tiles/Default/coin_gold_side.png" id="3_1ikuy"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jig8b"]
+radius = 18.3848
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_wnlwo"]
 animations = [{
 "frames": [{
@@ -18,12 +21,12 @@ animations = [{
 "speed": 7.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jig8b"]
-radius = 18.3848
-
 [node name="Coin" type="Area2D"]
 collision_layer = 0
 script = ExtResource("1_11l1o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jig8b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -32,8 +35,5 @@ animation = &"idle"
 autoplay = "idle"
 frame = 1
 frame_progress = 0.414059
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_jig8b")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
